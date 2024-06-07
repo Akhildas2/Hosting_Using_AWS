@@ -116,8 +116,10 @@ Type 'y' and press ENTER to proceed. You can verify that SSH connections are sti
 ufw status
 ```
 * Output
-  Status: active\n\n  ```
-  To                         Action      From\n  - OpenSSH                    ALLOW       Anywhere\n  - OpenSSH (v6)               ALLOW       Anywhere (v6)\n  ```
+  Status: active\n\n```
+  To                         Action      From
+  - OpenSSH                    ALLOW       Anywhere
+  - OpenSSH (v6)               ALLOW       Anywhere (v6)
 
 
 ### 4. Additional Configuration
