@@ -3,3 +3,5 @@ This guide, easy to follow for anyone, demonstrates how to deploy your Node.js a
 
 Steps to deploy a Node.js app using PM2, NGINX as a reverse proxy, and an SSL from Let's Encrypt
 
+#1. Create Free AWS Account
+Create free AWS Account at https://aws.amazon.com/
