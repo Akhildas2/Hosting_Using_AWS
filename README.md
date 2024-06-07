@@ -235,7 +235,7 @@ npm i
   ```
   or
   ```sh
-  nano .env
+  vim .env
   ```
 
 ### 5. **Ensure smooth application execution:**
