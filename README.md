@@ -29,3 +29,39 @@ From the AWS Management Console, navigate to the EC2 Dashboard.
 ### Launching the Instance
 - After configuring the necessary settings, click **"Launch"** to initiate the instance launch process. Monitor the progress and wait for the instance to reach the "running" state. Once the instance is running, note down its instance ID and public IP address for future reference.
 
+
+## Step 2: Connect to Your EC2 Instance
+
+1. **Navigate to EC2 Dashboard**
+   - Go to the AWS Management Console.
+   - Navigate to the EC2 Dashboard.
+
+2. **Select Your EC2 Instance**
+   - Click on "Instances" in the EC2 Dashboard.
+   - Choose the instance you want to connect to by selecting the checkbox next to it.
+
+3. **Access the Connect Tab (EC2 Instance Connect)**
+   - In the lower panel, click on the "Connect" button located at the top of the page.
+   - A new window will appear with connection options.
+
+4. **Connect Using EC2 Instance Connect**
+   - Select the "EC2 Instance Connect" option if available.
+   - Click the "Connect" button in the pop-up window to open an SSH session directly in your browser.
+
+   Alternatively, you can connect using an SSH client:
+
+5. **Connect Using SSH Client**
+   - Open an SSH client (such as Terminal on macOS/Linux or PowerShell on Windows).
+   - Locate your private key file. The key used to launch this instance is `<your-key-pair>.pem`.
+   - Run this command, if necessary, to ensure your key is not publicly viewable:
+     ```sh
+     chmod 400 "<your-key-pair>.pem"
+     ```
+   - Connect to your instance using its Public DNS. Replace `<your-instance-public-dns>` with your instance's actual Public DNS:
+     ```sh
+     ssh -i "<your-key-pair>.pem" ubuntu@<your-instance-public-dns>
+     ```
+
+   Example:
+   ```sh
+   ssh -i "example.pem" ubuntu@ec2-12-34-56-78.compute-1.amazonaws.com
