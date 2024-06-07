@@ -91,7 +91,8 @@ ufw app list
 ```
 
 - Output
-  Available applications:
+
+* Available applications:
   OpenSSH
 
 ### 2. Allow SSH Connections
@@ -115,12 +116,12 @@ Type 'y' and press ENTER to proceed. You can verify that SSH connections are sti
 ```sh
 ufw status
 ```
-* Output
-  Status: active\n\n```
-  To                         Action      From
-  - OpenSSH                    ALLOW       Anywhere
-  - OpenSSH (v6)               ALLOW       Anywhere (v6)
 
+- Output
+* Status: active
+* To Action From
+  - OpenSSH ALLOW Anywhere
+  - OpenSSH (v6) ALLOW Anywhere (v6)
 
 ### 4. Additional Configuration
 
