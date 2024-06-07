@@ -78,7 +78,7 @@ From the AWS Management Console, navigate to the EC2 Dashboard.
    ssh -i "example.pem" ubuntu@ec2-12-34-56-78.compute-1.amazonaws.com
    ```
 
-## Step 4: Setting Up a Basic Firewall
+## Step 3: Setting Up a Basic Firewall
 
 To ensure the security of your EC2 instance, setting up a basic firewall is essential. Ubuntu 20.04 servers can utilize the UFW (Uncomplicated Firewall) to control incoming and outgoing network traffic. Follow these steps to configure a basic firewall:
 
@@ -111,10 +111,14 @@ Type 'y' and press ENTER to proceed. You can verify that SSH connections are sti
 ufw status
 ```
 * Output
-Status: active
+  Status: active
 
-To                         Action      From
---                         ------      ----
-OpenSSH                    ALLOW       Anywhere
-OpenSSH (v6)               ALLOW       Anywhere (v6)
+      To                         Action      From
+  - OpenSSH                    ALLOW       Anywhere
+  - OpenSSH (v6)               ALLOW       Anywhere (v6)
 
+### 4. Additional Configuration
+As the firewall is currently blocking all connections except for SSH, you may need to adjust the firewall settings to allow traffic for additional services you install. For example, if you configure your instance to host a web server, you will need to allow HTTP (port 80) and HTTPS (port 443) traffic.
+
+
+* This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
