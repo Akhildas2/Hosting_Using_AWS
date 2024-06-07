@@ -132,4 +132,51 @@ OpenSSH(v6)-ALLOW-Anywhere(v6)
 
 As the firewall is currently blocking all connections except for SSH, you may need to adjust the firewall settings to allow traffic for additional services you install. For example, if you configure your instance to host a web server, you will need to allow HTTP (port 80) and HTTPS (port 443) traffic.
 
-*Note: This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
+Note: This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
+
+
+## Step 4: Set Up Node.js on EC2 Instance
+
+To run your Node.js applications on your EC2 instance, follow these steps to set up Node.js and NPM (Node Package Manager):
+
+### 1.**Update the Package List**
+   - It’s always a good practice to update the package lists to ensure you’re installing the latest versions of software. Run the following 
+   command:
+     ```sh
+     sudo apt update
+     ```
+### 2. **Upgrade Existing Packages**
+   - Upgrade all the existing packages to their latest versions:
+     ```sh
+     sudo apt upgrade -y
+     ```
+### 3. **Install NVM (Node Version Manager)**
+   - NVM allows you to manage multiple versions of Node.js. Install NVM with the following command:
+     ```sh
+     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+     ```
+### 4. **Source NVM Script**
+   - After installation, you need to source the NVM script to add it to your shell session:
+     ```sh
+     source ~/.bashrc
+     ```
+   - To verify that NVM is installed, check the installed version of NVM:
+     ```sh
+     nvm -v
+     ```
+### 5. **Install Node.js Using NVM**
+   - Once NVM is installed, you can use it to install Node.js. First, list the available Node.js versions:
+     ```sh
+     nvm ls-remote
+     ```
+   - Choose a version to install. For example, to install Node.js version 20.11.1, which is the current LTS (Long-Term Support) version of Node.js, run:
+     ```sh
+     nvm install 20.11.1
+     ```
+   - Verify the installation by checking the versions of Node.js and npm (Node Package Manager):
+     ```sh
+     node -v
+     ``` 
+     ```sh
+    npm -v
+     ``` 
