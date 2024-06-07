@@ -118,13 +118,14 @@ ufw status
 ```
 
 - Output
+```sh
 * Status: active
-- To-Actio-From
-- OpenSSH-ALLOW-Anywhere
-- OpenSSH(v6)-ALLOW-Anywhere(v6)
-
+To-Actio-From
+OpenSSH-ALLOW-Anywhere
+OpenSSH(v6)-ALLOW-Anywhere(v6)
+```
 ### 4. Additional Configuration
 
 As the firewall is currently blocking all connections except for SSH, you may need to adjust the firewall settings to allow traffic for additional services you install. For example, if you configure your instance to host a web server, you will need to allow HTTP (port 80) and HTTPS (port 443) traffic.
 
-\*Note: This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
+*Note: This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
