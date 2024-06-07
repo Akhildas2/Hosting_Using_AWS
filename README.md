@@ -195,7 +195,7 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
 
   ## Step 5: Clone your Node.js Project to EC2
 
-### 1.** Clone your application from GitHub**
+### 1. ** Clone your application from GitHub**
 
 - Replace <your-git-repository-url> with the URL of your Git repository.
   command:
@@ -209,7 +209,7 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
 cd your-project-directory
 ```
 
-and
+To list the files and directories in the current working directory, you can use:
 
 ```sh
 ls
@@ -303,9 +303,88 @@ pm2 flush <id>
 
 ### 6. **Add Git functionality to streamline updates:**
 
- **Pull latest changes from the repository:**
+**Pull latest changes from the repository:**
 
 ```sh
 git pull origin master
 ```
 
+## Step 6: Step-by-Step Guide to Install and Configure NGINX
+
+1. **Install NGINX**
+   Run the following command to install NGINX:
+
+```sh
+sudo apt update
+# After update add this comment for install nginx
+sudo apt install nginx
+```
+
+2. **Configure NGINX to Proxy Pass to your Node.js Application**
+
+   - Edit the default NGINX configuration file:
+
+```sh
+sudo nano /etc/nginx/sites-available/default
+
+```
+
+Clear the contents (Ctrl + K) and add the following configuration:
+
+```sh
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        proxy_pass http://localhost:3000;// Please change the port to whatever port your app runs on to place 3000.
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+
+```
+
+Make sure to change the port number in proxy_pass http://localhost:3000; to match the port your Node.js application is running on.
+
+3. **Check NGINX Configuration**
+   Verify the NGINX configuration for any syntax errors:
+
+```sh
+ sudo nginx -t
+
+```
+
+If there are any errors, resolve them before proceeding.
+
+4. **Restart NGINX**
+
+Restart the NGINX service to apply the new configuration:
+
+```sh
+sudo systemctl restart nginx
+
+```
+
+5.  **Check NGINX Status**
+
+To check if NGINX is running correctly, you can use:
+
+```sh
+sudo systemctl status nginx
+
+```
+ Alternatively, you can reload NGINX without restarting the service:        
+
+```sh
+sudo nginx -s reload
+
+```
