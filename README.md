@@ -177,12 +177,135 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
   ```sh
   nvm ls-remote
   ```
-- Choose a version to install. For example, to install Node.js version 20.11.1, which is the current LTS (Long-Term Support) version of Node.js, run:
+- Choose a version to install. For example, to install Node.js version 24.04, which is the current LTS (Long-Term Support) version of Node.js, run:
   ```sh
-  nvm install 20.11.1
+  nvm install  24.04
   ```
 - Verify the installation by checking the versions of Node.js and npm (Node Package Manager):
+
   ```sh
   node -v
+  ```
+
+  and
+
+  ```sh
   npm -v
   ```
+
+  ## Step 5: Clone your Node.js Project to EC2
+
+### 1.** Clone your application from GitHub**
+
+- Replace <your-git-repository-url> with the URL of your Git repository.
+  command:
+  ```sh
+  git clone <your-git-repository-url>
+  ```
+
+### 2. **Navigate into the cloned directory:**
+
+```sh
+cd your-project-directory
+```
+
+and
+
+```sh
+ls
+```
+
+### 3. **Install Dependencies:**
+
+```sh
+npm install
+```
+
+or
+
+```sh
+npm i
+```
+
+### 4. **Setup your .env file:**
+
+- Use nano or vim command to create or directly start typing to modify your file.
+  ```sh
+  nano .env
+  ```
+  or
+  ```sh
+  nano .env
+  ```
+
+### 5. **Ensure smooth application execution:**
+
+1. **Install PM2:**
+
+   - PM2 is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever, to reload them without downtime, and to facilitate common system admin tasks.
+
+```sh
+npm install pm2 -g
+```
+
+2. **Start your application with PM2:**
+
+   - Here app.js or index.js may change to your file name.
+
+```sh
+pm2 start app.js
+```
+
+or
+
+```sh
+pm2 start index.js
+```
+
+**Other useful PM2 commands:**
+
+- To check the version of PM2:
+
+```sh
+pm2 -v
+```
+
+- To stop PM2:
+
+```sh
+pm2 stop app
+# or this to stop all processes
+pm2 stop all
+```
+
+- To restart PM2:
+
+```sh
+pm2 restart app
+# or this to restart all processes
+pm2 restart all
+```
+
+- To see logs:
+
+```sh
+pm2 log
+```
+
+- To clear logs of all processes:
+
+```sh
+pm2 flush
+# To clear a certain process log, use its id. Replace <id> with the id of your process to clear its log
+pm2 flush <id>
+
+```
+
+### 6. **Add Git functionality to streamline updates:**
+
+ **Pull latest changes from the repository:**
+
+```sh
+git pull origin master
+```
+
