@@ -193,7 +193,7 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
   npm -v
   ```
 
-  ## Step 5: Clone your Node.js Project to EC2
+## Step 5: Clone your Node.js Project to EC2
 
 ### 1. ** Clone your application from GitHub**
 
@@ -382,9 +382,124 @@ To check if NGINX is running correctly, you can use:
 sudo systemctl status nginx
 
 ```
- Alternatively, you can reload NGINX without restarting the service:        
+
+Alternatively, you can reload NGINX without restarting the service:
 
 ```sh
 sudo nginx -s reload
 
 ```
+
+## Step 7: Set up DNS with Route 53 🌐
+
+Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
+
+1. **Access Amazon Route 53**
+
+   - Go to the [Amazon Route 53 console](https://console.aws.amazon.com/route53/).
+
+2. **Create a Hosted Zone**
+
+   - Click on "Create Hosted Zone".
+   - Enter your domain name (e.g., `yourdomain.com`) and choose a region.
+   - Click on "Create".
+
+3. **Obtain Name Servers**
+
+   - After creating the hosted zone, note down the Name Server (NS) records provided by Route 53 (there will be 4 nameservers). These are the authoritative name servers for your domain.
+
+4. **Update Domain Registrar's Name Servers**
+
+   - Log in to your domain registrar's website (e.g., GoDaddy, Hostinger).
+   - Navigate to the DNS management or name server settings.
+   - Replace the existing name servers with the ones provided by Route 53.
+
+5. **Create Record Sets**
+
+   - In the Route 53 dashboard, select the hosted zone you created.
+   - Click on "Create Record Set".
+   - For an A record (IPv4):
+     - **Name**: (Leave it empty for the root domain, or enter a subdomain).
+     - **Type**: A - IPv4 address.
+     - **TTL**: Choose an appropriate value (or leave the default).
+     - **Value**: Enter the IPv4 address of your EC2 instance or other resource.
+   - For a CNAME record:
+     - **Name**: (Leave it empty for the root domain, or enter a subdomain).
+     - **Type**: CNAME - Canonical name.
+     - **TTL**: Choose an appropriate value (or leave the default).
+     - **Value**: Enter the canonical name of your resource (e.g., `your-load-balancer-url.elb.amazonaws.com`).
+   - Click on "Create" to save the record set.
+
+6. **Verify DNS Configuration**
+
+   - It may take some time (up to 48 hours) for DNS changes to propagate globally.
+
+7. **Test Your Domain**
+   - Open a web browser and navigate to your domain (e.g., `http://example.com`). Ensure that it resolves to the correct AWS resource.
+
+## Step 8: Set Up SSL Certificate (HTTP to HTTPS)
+
+1. **Install Certbot**
+
+   ```bash
+   sudo add-apt-repository ppa:certbot/certbot
+   ```
+
+   ```bash
+   sudo apt-get update
+   ```
+
+   ```bash
+   sudo apt-get install python3-certbot-nginx
+   ```
+
+2. **Adjust Firewall Settings**
+
+   Ensure that your firewall allows HTTPS traffic (port 443) to your server. If using `ufw` (Uncomplicated Firewall), you can enable HTTPS traffic with:
+
+   ```bash
+   sudo ufw allow 'Nginx Full'
+   ```
+
+   Replace `Nginx Full` with your actual Nginx profile if it differs. If you previously allowed only HTTP traffic, you can remove that rule:
+
+   ```bash
+   sudo ufw delete allow 'Nginx HTTP'
+   ```
+
+3. **Obtain SSL Certificate**
+
+   Replace `example.com` and `www.example.com` with your actual domain names. Follow the prompts to complete the certificate issuance process. Certbot will automatically update the Nginx configuration to use the obtained SSL certificate.
+
+   ```bash
+   sudo certbot --nginx -d example.com -d www.example.com
+   ```
+
+   If you have only one domain, specify only one `-d` parameter.
+
+4. **Automatic Renewal**
+
+   Certbot certificates are valid for 90 days. Test the renewal process to ensure it works correctly. You can do this using:
+
+   ```bash
+   sudo certbot renew --dry-run
+   ```
+
+   Ensure to set up a cron job or systemd timer for automatic renewal as recommended by Certbot.
+
+5. **Verify SSL Configuration**
+
+   After obtaining and installing the SSL certificate, verify that HTTPS is working correctly on your site. Access your site using `https://yourdomain.com` and ensure the connection is secure.
+
+6. **Update Site Links**
+
+   Update any links in your website configuration, code, or content from `http://` to `https://` to ensure all resources are loaded securely.
+
+7. **Monitor Certificate Expiry**
+
+   Set up monitoring to alert you when your SSL certificate is nearing expiry, so you can renew it in time.
+
+By following these steps, you can secure your Nginx web server with HTTPS using Certbot, ensuring your firewall allows HTTPS traffic for proper functionality.
+
+## Successfully Hosted Node.js Project on AWS
+
