@@ -8,7 +8,7 @@ Steps to deploy a Node.js app using PM2, NGINX as a reverse proxy, and an SSL fr
 
 ### 1. Create Free AWS Account or Login
 
-Log in to your AWS account at [https://aws.amazon.com/](https://aws.amazon.com/), using either your root account credentials or IAM user credentials.
+Log in to your AWS account at [https://aws.amazon.com/](https://aws.amazon.com/), using either your root account credentials or I AM user credentials.
 
 ### 2. Navigate to EC2 Dashboard
 
@@ -132,8 +132,6 @@ OpenSSH(v6)-ALLOW-Anywhere(v6)
 
 As the firewall is currently blocking all connections except for SSH, you may need to adjust the firewall settings to allow traffic for additional services you install. For example, if you configure your instance to host a web server, you will need to allow HTTP (port 80) and HTTPS (port 443) traffic.
 
-Note: This design presents each step clearly and concisely, making it easy for readers to follow and implement on their EC2 instances.
-
 ## Step 4: Set Up Node.js on EC2 Instance
 
 To run your Node.js applications on your EC2 instance, follow these steps to set up Node.js and NPM (Node Package Manager):
@@ -183,25 +181,20 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
   ```
 - Verify the installation by checking the versions of Node.js and npm (Node Package Manager):
 
-  ```sh
-  node -v
-  ```
-
-  and
-
-  ```sh
-  npm -v
-  ```
+```sh
+node -v
+# and
+npm -v
+```
 
 ## Step 5: Clone your Node.js Project to EC2
 
-### 1. ** Clone your application from GitHub**
+### 1. **Clone your application from GitHub**
 
-- Replace <your-git-repository-url> with the URL of your Git repository.
-  command:
-  ```sh
-  git clone <your-git-repository-url>
-  ```
+```sh
+git clone <your-git-repository-url>
+# Replace <your-git-repository-url> with the URL of your Git repository.
+```
 
 ### 2. **Navigate into the cloned directory:**
 
@@ -219,24 +212,19 @@ ls
 
 ```sh
 npm install
-```
-
-or
-
-```sh
+# or
 npm i
 ```
 
 ### 4. **Setup your .env file:**
 
 - Use nano or vim command to create or directly start typing to modify your file.
-  ```sh
-  nano .env
-  ```
-  or
-  ```sh
-  vim .env
-  ```
+
+```sh
+nano .env
+# or
+vim .env
+```
 
 ### 5. **Ensure smooth application execution:**
 
@@ -254,12 +242,9 @@ npm install pm2 -g
 
 ```sh
 pm2 start app.js
-```
-
-or
-
-```sh
+# or
 pm2 start index.js
+
 ```
 
 **Other useful PM2 commands:**
@@ -419,15 +404,15 @@ Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
    - In the Route 53 dashboard, select the hosted zone you created.
    - Click on "Create Record Set".
    - For an A record (IPv4):
-     - **Name**: (Leave it empty for the root domain, or enter a subdomain).
-     - **Type**: A - IPv4 address.
-     - **TTL**: Choose an appropriate value (or leave the default).
+     - **Name**: (Leave it empty for the root domain).
+     - **Type**: A
+     - **Alias**: No
      - **Value**: Enter the IPv4 address of your EC2 instance or other resource.
-   - For a CNAME record:
-     - **Name**: (Leave it empty for the root domain, or enter a subdomain).
-     - **Type**: CNAME - Canonical name.
-     - **TTL**: Choose an appropriate value (or leave the default).
-     - **Value**: Enter the canonical name of your resource (e.g., `your-load-balancer-url.elb.amazonaws.com`).
+   - For a CNAME record (Canonical Name):
+     - **Name**: (Enter a subdomain like `www` if needed).
+     - **Type**: CNAME
+     - **Alias**: Yes
+     - **Alias Target**: Enter the canonical name of your resource (e.g., `your-load-balancer-url.elb.amazonaws.com`).
    - Click on "Create" to save the record set.
 
 6. **Verify DNS Configuration**
@@ -435,6 +420,7 @@ Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
    - It may take some time (up to 48 hours) for DNS changes to propagate globally.
 
 7. **Test Your Domain**
+
    - Open a web browser and navigate to your domain (e.g., `http://example.com`). Ensure that it resolves to the correct AWS resource.
 
 ## Step 8: Set Up SSL Certificate (HTTP to HTTPS)
@@ -501,5 +487,58 @@ Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
 
 By following these steps, you can secure your Nginx web server with HTTPS using Certbot, ensuring your firewall allows HTTPS traffic for proper functionality.
 
-## Successfully Hosted Node.js Project on AWS
+# Successfully Hosted Node.js Project on AWS
+
+Congratulations! I have successfully hosted my Node.js project on AWS. Here are links to connect with me:
+
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Akhil%20Das-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akhil-das-2-aki/)
+
+[![Instagram](https://img.shields.io/badge/Instagram-akhildas___2___aki-%23bc2a8d?logo=instagram&logoColor=white)](https://www.instagram.com/akhildas___2___aki/)
+
+Feel free to reach out and connect!
+
+### Additional Commands
+
+#### NGINX COMMANDS
+
+- **Stop:** `sudo systemctl stop nginx` - Stops the Nginx service.
+- **Start:** `sudo systemctl start nginx` - Starts the Nginx service.
+- **Restart:** `sudo systemctl restart nginx` - Restarts the Nginx service.
+- **Reload:** `sudo systemctl reload nginx` - Reloads the Nginx configuration.
+- **Disable:** `sudo systemctl disable nginx` - Disables automatic startup of Nginx.
+- **Enable:** `sudo systemctl enable nginx` - Enables automatic startup of Nginx.
+- **Check status:** `sudo systemctl status nginx` - Checks the status of Nginx service.
+
+#### PM2 COMMANDS
+
+- **pm2 start:** Starts a new process.
+- **pm2 list:** Lists all running processes.
+- **pm2 stop:** Stops a running process.
+- **pm2 restart:** Restarts a running process.
+- **pm2 reload:** Reloads a running process without downtime.
+- **pm2 delete:** Deletes a process from the PM2 process list.
+- **pm2 logs:** Displays the logs for a running process.
+- **pm2 monit:** Opens a real-time monitoring dashboard for all running processes.
+- **pm2 save:** Saves the current process list to a file.
+- **pm2 startup:** Configures PM2 to run as a daemon service.
+
+Example: `pm2 start <processid>` or `pm2 start all`.
+
+#### LINUX COMMANDS
+
+- **ls:** Lists directories.
+- **pwd:** Prints the current working directory.
+- **cd:** Changes directory.
+- **mkdir:** Creates directories.
+- **mv:** Moves or renames files.
+- **cp:** Copies files.
+- **rm:** Deletes files or directories.
+- **touch:** Creates blank/empty files.
+- **sudo:** Executes a command as the superuser.
+- **clear:** Clears the terminal.
+- **wget:** Downloads files from the internet.
+- **sudo apt-get update:** Updates the package lists from repositories.
+- **sudo apt-get upgrade:** Installs the latest versions of installed packages.
+
 
