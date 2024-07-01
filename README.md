@@ -487,19 +487,20 @@ Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
 
 By following these steps, you can secure your Nginx web server with HTTPS using Certbot, ensuring your firewall allows HTTPS traffic for proper functionality.
 
-# Successfully Hosted Node.js Project on AWS
----
-Congratulations! Successfully Hosted Node.js Project on AWS
+# Successfully Hosted Node.js Project on AWS 🚀
+
+Congratulations! Successfully Hosted Node.js Project on AWS.
 Here are links to connect with me:
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Akhil%20Das-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akhil-das-2-aki/)
+
 [![Instagram](https://img.shields.io/badge/Instagram-akhildas___2___aki-%23bc2a8d?logo=instagram&logoColor=white)](https://www.instagram.com/akhildas___2___aki/)
 
 Feel free to reach out and connect!
----
 
 ### Additional Commands
 ---
+
 #### NGINX COMMANDS
 
 - **Stop:** `sudo systemctl stop nginx` - Stops the Nginx service.
