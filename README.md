@@ -307,7 +307,7 @@ sudo apt install nginx
 
 2. **Configure NGINX to Proxy Pass to your Node.js Application**
 
-   - Edit the default NGINX configuration file:
+   - Edit the default NGINX configuration file using nano or vim editor:
 
 ```sh
 sudo nano /etc/nginx/sites-available/default
@@ -490,6 +490,7 @@ By following these steps, you can secure your Nginx web server with HTTPS using 
 # Successfully Hosted Node.js Project on AWS 🚀
 
 Congratulations! Successfully Hosted Node.js Project on AWS.
+
 Here are links to connect with me:
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Akhil%20Das-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akhil-das-2-aki/)
@@ -498,7 +499,7 @@ Here are links to connect with me:
 
 Feel free to reach out and connect!
 
-### Additional Commands
+## Additional Commands
 ---
 
 #### NGINX COMMANDS
