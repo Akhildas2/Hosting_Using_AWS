@@ -15,3 +15,7 @@ server {
             proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
+
+
+// Use this line if you are not using Route 53
+server_name threadloom.store www.threadloom.store;

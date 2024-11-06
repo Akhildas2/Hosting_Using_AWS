@@ -253,10 +253,11 @@ pm2 start index.js
 
 ```sh
 pm2 save
-#or
+# and
 pm2 startup
 
 ```
+
 **Other useful PM2 commands:**
 
 - To check the version of PM2:
@@ -345,6 +346,8 @@ server {
     }
 }
 
+// Use this line if you are not using Route 53
+server_name threadloom.store www.threadloom.store;
 
 ```
 
@@ -385,9 +388,11 @@ sudo nginx -s reload
 
 ```
 
-## Step 7: Set up DNS with Route 53 🌐
+## Step 7: Set Up DNS with Route 53 🌐 or Without
 
-Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
+### 1. Using Route 53
+
+Before you begin, ensure you have a domain purchased from a registrar like Hostinger or GoDaddy.
 
 1. **Access Amazon Route 53**
 
@@ -396,42 +401,71 @@ Before you begin, purchase a domain from a registrar like Hostinger or GoDaddy.
 2. **Create a Hosted Zone**
 
    - Click on "Create Hosted Zone".
-   - Enter your domain name (e.g., `yourdomain.com`) and choose a region.
-   - Click on "Create".
+   - Enter your domain name (e.g., `yourdomain.com`) and choose the appropriate region.
+   - Click "Create".
 
 3. **Obtain Name Servers**
 
-   - After creating the hosted zone, note down the Name Server (NS) records provided by Route 53 (there will be 4 nameservers). These are the authoritative name servers for your domain.
+   - After creating the hosted zone, note down the Name Server (NS) records provided by Route 53 (typically, there are four nameservers). These will be the authoritative name servers for your domain.
 
 4. **Update Domain Registrar's Name Servers**
 
-   - Log in to your domain registrar's website (e.g., GoDaddy, Hostinger).
-   - Navigate to the DNS management or name server settings.
+   - Log in to your domain registrar’s account (e.g., GoDaddy, Hostinger).
+   - Go to the DNS management or name server settings.
    - Replace the existing name servers with the ones provided by Route 53.
 
 5. **Create Record Sets**
 
    - In the Route 53 dashboard, select the hosted zone you created.
    - Click on "Create Record Set".
-   - For an A record (IPv4):
-     - **Name**: (Leave it empty for the root domain).
+   - For an **A Record** (IPv4):
+     - **Name**: Leave empty for the root domain.
      - **Type**: A
      - **Alias**: No
-     - **Value**: Enter the IPv4 address of your EC2 instance or other resource.
-   - For a CNAME record (Canonical Name):
-     - **Name**: (Enter a subdomain like `www` if needed).
+     - **Value**: Enter the IPv4 address of your EC2 instance.
+   - For a **CNAME Record** (subdomain):
+     - **Name**: Enter a subdomain (e.g., `www`).
      - **Type**: CNAME
      - **Alias**: Yes
      - **Alias Target**: Enter the canonical name of your resource (e.g., `your-load-balancer-url.elb.amazonaws.com`).
-   - Click on "Create" to save the record set.
+   - Click "Create" to save the record set.
 
 6. **Verify DNS Configuration**
 
-   - It may take some time (up to 48 hours) for DNS changes to propagate globally.
+   - DNS changes may take up to 48 hours to propagate globally.
 
 7. **Test Your Domain**
+   - Open a browser and navigate to your domain (e.g., `http://example.com`) to ensure it resolves to your AWS resource.
 
-   - Open a web browser and navigate to your domain (e.g., `http://example.com`). Ensure that it resolves to the correct AWS resource.
+---
+
+### 2. Without Using Route 53
+
+If you prefer not to use Route 53, you can directly configure your DNS settings with your domain registrar.
+
+1. **Log in to Your Domain Registrar**
+
+   - Sign in to your registrar's website (e.g., GoDaddy, Hostinger) and locate the DNS management section.
+
+2. **Create an A Record**
+
+   - **Name**: Leave blank for the root domain.
+   - **Type**: A
+   - **Value**: Enter the IPv4 address of your EC2 instance.
+
+3. **Create a CNAME Record** (Optional, for `www` subdomain)
+
+   - **Name**: Enter `www`.
+   - **Type**: CNAME
+   - **Value**: Enter the root domain (e.g., `yourdomain.com`) to point the subdomain to the root.
+
+4. **Save DNS Records**
+
+   - Save the changes. DNS propagation may take up to 48 hours.  
+     Sometimes, DNS changes can take a few minutes to propagate fully. Use a tool like [WhatsMyDNS](https://www.whatsmydns.net/) to check if your site (e.g., `yoursite.com`) is pointing to your server’s IP (`0.01.011.111`) globally.
+
+5. **Test Your Domain**
+   - After propagation, go to your domain (e.g., `http://yourdomain.com`) to ensure it directs to your site.
 
 ## Step 8: Set Up SSL Certificate (HTTP to HTTPS)
 
@@ -551,5 +585,3 @@ Example: `pm2 start <processid>` or `pm2 start all`.
 - **wget:** Downloads files from the internet.
 - **sudo apt-get update:** Updates the package lists from repositories.
 - **sudo apt-get upgrade:** Installs the latest versions of installed packages.
-
-
