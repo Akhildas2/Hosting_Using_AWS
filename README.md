@@ -247,6 +247,16 @@ pm2 start index.js
 
 ```
 
+3. **Save and Restart**
+
+   - Save the PM2 process list to keep your app running after server reboots:
+
+```sh
+pm2 save
+#or
+pm2 startup
+
+```
 **Other useful PM2 commands:**
 
 - To check the version of PM2:
