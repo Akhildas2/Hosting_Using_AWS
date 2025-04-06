@@ -121,14 +121,13 @@ ufw status
 
 - Output
 
-```sh
 Status: active
+
 | To             |Action    | From         | 
 |----------------|----------|--------------|
 | OpenSSH        | ALLOW    | Anywhere     | 
 | OpenSSH(v6)    | ALLOW    | Anywhere(v6) |
  
-```
 
 ### 4. Additional Configuration – Security Group
 
