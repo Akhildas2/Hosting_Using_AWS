@@ -92,10 +92,8 @@ ufw app list
 
 - Output
 
-```sh
  Available applications:
   OpenSSH
-```
 
 ### 2. Allow SSH Connections
 
@@ -120,7 +118,6 @@ ufw status
 ```
 
 - Output
-
 Status: active
 
 | To             |Action    | From         | 
@@ -148,7 +145,7 @@ For example, if you're hosting a web server on this instance, you should allow H
 | HTTPS   | TCP      | 443        | 0.0.0.0/0   | Allow secure traffic   |
 | SSH     | TCP      | 22         | Your IP     | Allow remote access    |
 
-> 🔒 **Tip:** For better security, restrict SSH access to your own IP instead of `0.0.0.0/0`.
+> **Tip:** For better security, restrict SSH access to your own IP instead of `0.0.0.0/0`.
 Once these rules are added, your server will be accessible over the web using your domain or public IP.
 
 
@@ -197,15 +194,18 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
   ```
 - Choose a version to install. For example, to install Node.js version 24.04, which is the current LTS (Long-Term Support) version of Node.js, run:
   ```sh
-  nvm install  24.04
+  nvm install  22.14
   ```
-- Verify the installation by checking the versions of Node.js and npm (Node Package Manager):
+- Verify the installation by checking the versions
 
-```sh
-node -v
-# and
-npm -v
-```
+- Check Node.js Version
+   ```sh
+   node -v
+   ```
+ - Check npm (Node Package Manager) Version
+   ```sh
+   npm -v
+   ```
 
 ## Step 5: Clone your Node.js Project to EC2
 
@@ -213,8 +213,8 @@ npm -v
 
 ```sh
 git clone <your-git-repository-url>
-# Replace <your-git-repository-url> with the URL of your Git repository.
 ```
+> **Note:** Replace <your-git-repository-url> with the URL of your Git repository.
 
 ### 2. **Navigate into the cloned directory:**
 
@@ -232,20 +232,23 @@ ls
 
 ```sh
 npm install
-# or
+```
+> **OR**
+```sh
 npm i
 ```
 
 ### 4. **Setup your .env file:**
 
-- Use nano or vim command to create or directly start typing to modify your file.
+- You can use `nano` or `vim` to create or edit the .env file:
 
 ```sh
 nano .env
-# or
+```
+> **OR**
+```sh
 vim .env
 ```
-
 ### 5. **Ensure smooth application execution:**
 
 1. **Install PM2:**
@@ -262,9 +265,10 @@ npm install pm2 -g
 
 ```sh
 pm2 start app.js
-# or
+```
+> **OR**
+```sh
 pm2 start index.js
-
 ```
 
 3. **Save and Restart**
@@ -273,11 +277,11 @@ pm2 start index.js
 
 ```sh
 pm2 save
-# and
-pm2 startup
-
 ```
-
+> **AND**
+```sh
+pm2 startup
+```
 **Other useful PM2 commands:**
 
 - To check the version of PM2:
@@ -290,20 +294,21 @@ pm2 -v
 
 ```sh
 pm2 stop app
-# or this to stop all processes
+```
+> **OR**# This to stop all processes
+```sh
 pm2 stop all
 ```
-
 - To restart PM2:
-
 ```sh
 pm2 restart app
-# or this to restart all processes
+```
+> **OR**# This to restart all processes
+```sh
 pm2 restart all
 ```
 
 - To see logs:
-
 ```sh
 pm2 log
 ```
@@ -312,9 +317,10 @@ pm2 log
 
 ```sh
 pm2 flush
-# To clear a certain process log, use its id. Replace <id> with the id of your process to clear its log
+```
+> To clear a certain process log, use its id. Replace <id> with the id of your process to clear its log
+```sh
 pm2 flush <id>
-
 ```
 
 ### 6. **Add Git functionality to streamline updates:**
@@ -329,10 +335,11 @@ git pull origin master
 
 1. **Install NGINX**
    Run the following command to install NGINX:
-
 ```sh
 sudo apt update
-# After update add this comment for install nginx
+```
+> After update add this comment for install nginx
+```sh
 sudo apt install nginx
 ```
 
@@ -378,7 +385,6 @@ Make sure to change the port number in proxy_pass http://localhost:3000; to matc
 
 ```sh
  sudo nginx -t
-
 ```
 
 If there are any errors, resolve them before proceeding.
@@ -389,7 +395,6 @@ Restart the NGINX service to apply the new configuration:
 
 ```sh
 sudo systemctl restart nginx
-
 ```
 
 5.  **Check NGINX Status**
@@ -398,14 +403,12 @@ To check if NGINX is running correctly, you can use:
 
 ```sh
 sudo systemctl status nginx
-
 ```
 
 Alternatively, you can reload NGINX without restarting the service:
 
 ```sh
 sudo nginx -s reload
-
 ```
 
 ## Step 7: Set Up DNS with Route 53 🌐 or Without
