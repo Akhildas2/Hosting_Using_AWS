@@ -123,14 +123,35 @@ ufw status
 
 ```sh
 Status: active
-To-Actio-From
-OpenSSH-ALLOW-Anywhere
-OpenSSH(v6)-ALLOW-Anywhere(v6)
+| To             |Action    | From         | 
+|----------------|----------|--------------|
+| OpenSSH        | ALLOW    | Anywhere     | 
+| OpenSSH(v6)    | ALLOW    | Anywhere(v6) |
+ 
 ```
 
-### 4. Additional Configuration
+### 4. Additional Configuration – Security Group
 
-As the firewall is currently blocking all connections except for SSH, you may need to adjust the firewall settings to allow traffic for additional services you install. For example, if you configure your instance to host a web server, you will need to allow HTTP (port 80) and HTTPS (port 443) traffic.
+As the firewall is currently blocking all connections except for SSH, you may need to adjust the AWS Security Group settings to allow traffic for additional services.
+For example, if you're hosting a web server on this instance, you should allow HTTP (port 80) and HTTPS (port 443) traffic.
+
+#### Steps to Update Security Group:
+
+1. Go to your [AWS EC2 Dashboard](https://console.aws.amazon.com/ec2/).
+2. Select your running instance.
+3. Scroll down to the **Security** section and click on the **Security Group** link.
+4. Under the **Inbound rules** tab, click **Edit inbound rules**.
+5. Add the following rules:
+
+| Type    | Protocol | Port Range | Source      | Description            |
+|---------|----------|------------|-------------|------------------------|
+| HTTP    | TCP      | 80         | 0.0.0.0/0   | Allow web traffic      |
+| HTTPS   | TCP      | 443        | 0.0.0.0/0   | Allow secure traffic   |
+| SSH     | TCP      | 22         | Your IP     | Allow remote access    |
+
+> 🔒 **Tip:** For better security, restrict SSH access to your own IP instead of `0.0.0.0/0`.
+Once these rules are added, your server will be accessible over the web using your domain or public IP.
+
 
 ## Step 4: Set Up Node.js on EC2 Instance
 
