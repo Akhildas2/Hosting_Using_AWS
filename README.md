@@ -92,8 +92,8 @@ ufw app list
 
 - Output
 
- Available applications:
-  OpenSSH
+Available applications:
+OpenSSH
 
 ### 2. Allow SSH Connections
 
@@ -118,13 +118,12 @@ ufw status
 ```
 
 - Output
-Status: active
+  Status: active
 
-| To             |Action    | From         | 
-|----------------|----------|--------------|
-| OpenSSH        | ALLOW    | Anywhere     | 
-| OpenSSH(v6)    | ALLOW    | Anywhere(v6) |
- 
+| To          | Action | From         |
+| ----------- | ------ | ------------ |
+| OpenSSH     | ALLOW  | Anywhere     |
+| OpenSSH(v6) | ALLOW  | Anywhere(v6) |
 
 ### 4. Additional Configuration – Security Group
 
@@ -139,15 +138,14 @@ For example, if you're hosting a web server on this instance, you should allow H
 4. Under the **Inbound rules** tab, click **Edit inbound rules**.
 5. Add the following rules:
 
-| Type    | Protocol | Port Range | Source      | Description            |
-|---------|----------|------------|-------------|------------------------|
-| HTTP    | TCP      | 80         | 0.0.0.0/0   | Allow web traffic      |
-| HTTPS   | TCP      | 443        | 0.0.0.0/0   | Allow secure traffic   |
-| SSH     | TCP      | 22         | Your IP     | Allow remote access    |
+| Type  | Protocol | Port Range | Source    | Description          |
+| ----- | -------- | ---------- | --------- | -------------------- |
+| HTTP  | TCP      | 80         | 0.0.0.0/0 | Allow web traffic    |
+| HTTPS | TCP      | 443        | 0.0.0.0/0 | Allow secure traffic |
+| SSH   | TCP      | 22         | Your IP   | Allow remote access  |
 
 > **Tip:** For better security, restrict SSH access to your own IP instead of `0.0.0.0/0`.
-Once these rules are added, your server will be accessible over the web using your domain or public IP.
-
+> Once these rules are added, your server will be accessible over the web using your domain or public IP.
 
 ## Step 4: Set Up Node.js on EC2 Instance
 
@@ -199,13 +197,13 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
 - Verify the installation by checking the versions
 
 - Check Node.js Version
-   ```sh
-   node -v
-   ```
- - Check npm (Node Package Manager) Version
-   ```sh
-   npm -v
-   ```
+  ```sh
+  node -v
+  ```
+- Check npm (Node Package Manager) Version
+  ```sh
+  npm -v
+  ```
 
 ## Step 5: Clone your Node.js Project to EC2
 
@@ -214,6 +212,7 @@ To run your Node.js applications on your EC2 instance, follow these steps to set
 ```sh
 git clone <your-git-repository-url>
 ```
+
 > **Note:** Replace <your-git-repository-url> with the URL of your Git repository.
 
 ### 2. **Navigate into the cloned directory:**
@@ -233,7 +232,9 @@ ls
 ```sh
 npm install
 ```
+
 > **OR**
+
 ```sh
 npm i
 ```
@@ -245,10 +246,13 @@ npm i
 ```sh
 nano .env
 ```
+
 > **OR**
+
 ```sh
 vim .env
 ```
+
 ### 5. **Ensure smooth application execution:**
 
 1. **Install PM2:**
@@ -266,7 +270,9 @@ npm install pm2 -g
 ```sh
 pm2 start app.js
 ```
+
 > **OR**
+
 ```sh
 pm2 start index.js
 ```
@@ -278,10 +284,13 @@ pm2 start index.js
 ```sh
 pm2 save
 ```
+
 > **AND**
+
 ```sh
 pm2 startup
 ```
+
 **Other useful PM2 commands:**
 
 - To check the version of PM2:
@@ -295,20 +304,27 @@ pm2 -v
 ```sh
 pm2 stop app
 ```
+
 > **OR**# This to stop all processes
+
 ```sh
 pm2 stop all
 ```
+
 - To restart PM2:
+
 ```sh
 pm2 restart app
 ```
+
 > **OR**# This to restart all processes
+
 ```sh
 pm2 restart all
 ```
 
 - To see logs:
+
 ```sh
 pm2 log
 ```
@@ -318,7 +334,9 @@ pm2 log
 ```sh
 pm2 flush
 ```
+
 > To clear a certain process log, use its id. Replace <id> with the id of your process to clear its log
+
 ```sh
 pm2 flush <id>
 ```
@@ -335,10 +353,13 @@ git pull origin master
 
 1. **Install NGINX**
    Run the following command to install NGINX:
+
 ```sh
 sudo apt update
 ```
+
 > After update add this comment for install nginx
+
 ```sh
 sudo apt install nginx
 ```
@@ -568,32 +589,53 @@ Feel free to reach out and connect!
 
 ## Additional Commands
 
-#### NGINX COMMANDS
+#### 🌐 NGINX COMMANDS
 
-- **Stop:** `sudo systemctl stop nginx` - Stops the Nginx service.
 - **Start:** `sudo systemctl start nginx` - Starts the Nginx service.
+- **Stop:** `sudo systemctl stop nginx` - Stops the Nginx service.
 - **Restart:** `sudo systemctl restart nginx` - Restarts the Nginx service.
-- **Reload:** `sudo systemctl reload nginx` - Reloads the Nginx configuration.
-- **Disable:** `sudo systemctl disable nginx` - Disables automatic startup of Nginx.
-- **Enable:** `sudo systemctl enable nginx` - Enables automatic startup of Nginx.
-- **Check status:** `sudo systemctl status nginx` - Checks the status of Nginx service.
+- **Reload:** `sudo systemctl reload nginx` - Reloads Nginx without downtime (for config changes).
+- **Enable:** `sudo systemctl enable nginx` - Enables Nginx to start on system boot.
+- **Disable:** `sudo systemctl disable nginx` - Disables Nginx from starting on system boot.
+- **Check status:** `sudo systemctl status nginx` - Displays current status of Nginx.
+- **Test config:** `sudo nginx -t` - Tests the Nginx configuration file for syntax errors.
+- **View logs (access):** `tail -f /var/log/nginx/access.log` - Live view of access logs.
+- **View logs (error):** `tail -f /var/log/nginx/error.log` - Live view of error logs.
+- **Reload after editing config:** `sudo nginx -s reload` - Reloads Nginx using signal (alternative to `systemctl`).
+- **Check version:** `nginx -v` - Prints Nginx version.
+- **Full version info:** `nginx -V` - Shows version and compile-time configuration.
+- **Config location:** `/etc/nginx/nginx.conf` - Main configuration file.
+- **Sites-available path:** `/etc/nginx/sites-available/` - Where your server blocks (virtual hosts) live.
+- **Sites-enabled path:** `/etc/nginx/sites-enabled/` - Active symlinks to server blocks.
+- **Enable a site:** `sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/`
+- **Disable a site:** `sudo rm /etc/nginx/sites-enabled/example.com`
 
-#### PM2 COMMANDS
+#### 🛠️ PM2 COMMANDS
 
 - **pm2 start:** Starts a new process.
+- **pm2 start app.js --name "my-app":** Starts an app with a custom name.
+- **pm2 start ecosystem.config.js:** Starts apps defined in an ecosystem config file.
 - **pm2 list:** Lists all running processes.
 - **pm2 stop:** Stops a running process.
+- **pm2 stop all:** Stops all processes.
 - **pm2 restart:** Restarts a running process.
+- **pm2 restart all:** Restarts all processes.
 - **pm2 reload:** Reloads a running process without downtime.
 - **pm2 delete:** Deletes a process from the PM2 process list.
+- **pm2 delete all:** Deletes all processes from the list.
 - **pm2 logs:** Displays the logs for a running process.
+- **pm2 logs app-name --lines 100:** Shows the last 100 log lines for a process.
 - **pm2 monit:** Opens a real-time monitoring dashboard for all running processes.
 - **pm2 save:** Saves the current process list to a file.
-- **pm2 startup:** Configures PM2 to run as a daemon service.
+- **pm2 startup:** Configures PM2 to run as a daemon service on system boot.
+- **pm2 flush:** Clears all log files.
+- **pm2 kill:** Stops PM2 and all processes it manages.
+- **pm2 describe <id\|name>:** Shows detailed info about a process.
+- **pm2 env <id\|name>:** Displays environment variables for a process.
+- **pm2 reset <id\|name>:** Resets log counters for a process.
+- **pm2 update:** Updates PM2 and restarts all apps.
 
-Example: `pm2 start <processid>` or `pm2 start all`.
-
-#### LINUX COMMANDS
+#### 🐧 LINUX COMMANDS
 
 - **ls:** Lists directories.
 - **pwd:** Prints the current working directory.
@@ -606,5 +648,21 @@ Example: `pm2 start <processid>` or `pm2 start all`.
 - **sudo:** Executes a command as the superuser.
 - **clear:** Clears the terminal.
 - **wget:** Downloads files from the internet.
+- **curl:** Transfers data from or to a server (e.g., APIs, downloads).
+- **cat:** Displays the contents of a file.
+- **nano:** Opens a simple terminal-based text editor.
+- **vim:** Opens the Vim editor (advanced).
+- **top:** Shows running processes and resource usage.
+- **htop:** Interactive process viewer (better `top`, may need to install).
+- **df -h:** Displays disk space usage in human-readable format.
+- **du -sh folder_name:** Shows size of a directory.
+- **chmod:** Changes file permissions.
+- **chown:** Changes file ownership.
+- **ps aux:** Lists all running processes.
+- **kill <PID>:** Terminates a process by its process ID.
+- **tar -xvzf file.tar.gz:** Extracts a compressed `.tar.gz` file.
 - **sudo apt-get update:** Updates the package lists from repositories.
 - **sudo apt-get upgrade:** Installs the latest versions of installed packages.
+- **sudo apt-get install <package>:** Installs a new package.
+- **sudo reboot:** Reboots the system.
+- **sudo shutdown now:** Shuts down the system immediately.
